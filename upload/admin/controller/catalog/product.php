@@ -22,11 +22,7 @@ class ControllerCatalogProduct extends Controller {
 		$this->load->model('catalog/product');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
-		    echo "<pre>";
-		    print_r($this->request->post);
-		    echo "</pre>";
-
-//			$this->model_catalog_product->addProduct($this->request->post);
+			$this->model_catalog_product->addProduct($this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
