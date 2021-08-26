@@ -598,8 +598,12 @@ $(document).ready(function() {
       patterns: {
         youtube: {
             index: 'youtube.com/',
-            id: function (url) { return url },
-            src: '%id%'
+            id: function (url) {
+                var m = url.match( /^.*(?:youtu.be\/|v\/|e\/|u\/\w+\/|embed\/|v=)([^#\&\?]*).*/ );
+                if ( !m || !m[1] ) return null;
+                return m[1];
+            },
+            src: '//www.youtube.com/embed/%id%'
         },
       }
     }
