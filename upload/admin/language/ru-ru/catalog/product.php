@@ -27,7 +27,10 @@ $_['column_status']          = 'Статус';
 $_['column_action']          = 'Действие';
 
 // Tab
-$_['tab_image']              = 'Изображения и видео';
+$_['tab_video']              = 'Видео';
+
+// Button
+$_['button_video_add']       = 'Добавить';
 
 // Entry
 $_['entry_name']             = 'Название товара';
@@ -86,6 +89,7 @@ $_['entry_tag']              = 'Теги товара';
 $_['entry_reward']           = 'Бонусные баллы';
 $_['entry_layout']           = 'Макет';
 $_['entry_recurring']        = 'Профиль периодичности';
+$_['entry_preview_image']    = 'Предварительное изображение';
 
 // Help
 $_['help_sku']               = 'SKU или код производителя';

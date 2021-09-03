@@ -74,7 +74,7 @@ class ControllerCatalogProduct extends Controller {
 		$this->load->model('catalog/product');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
-			$this->model_catalog_product->editProduct($this->request->get['product_id'], $this->request->post);
+            $this->model_catalog_product->editProduct($this->request->get['product_id'], $this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -1081,10 +1081,37 @@ class ControllerCatalogProduct extends Controller {
 			$data['product_images'][] = array(
 				'image'      => $image,
 				'thumb'      => $this->model_tool_image->resize($thumb, 100, 100),
-				'video'      => $product_image['video'],
 				'sort_order' => $product_image['sort_order']
 			);
 		}
+
+        // Videos
+        if (isset($this->request->post['product_video'])) {
+            $product_videos = $this->request->post['product_video'];
+        } elseif (isset($this->request->get['product_id'])) {
+            $product_videos = $this->model_catalog_product->getProductVideos($this->request->get['product_id']);
+        } else {
+            $product_videos = array();
+        }
+
+        $data['product_videos'] = array();
+
+        foreach ($product_videos as $product_video) {
+            if (is_file(DIR_IMAGE . $product_video['image'])) {
+                $image = $product_video['image'];
+                $thumb = $product_video['image'];
+            } else {
+                $image = '';
+                $thumb = 'no_image.png';
+            }
+
+            $data['product_videos'][] = array(
+                'image'      => $image,
+                'thumb'      => $this->model_tool_image->resize($thumb, 100, 100),
+                'video'      => $product_video['video'],
+                'sort_order' => $product_video['sort_order']
+            );
+        }
 
 		// Downloads
 		$this->load->model('catalog/download');

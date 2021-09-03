@@ -25,22 +25,19 @@
               <li><a class="thumbnail" href="{{ popup }}" title="{{ heading_title }}"><img src="{{ thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}" /></a></li>
             {% endif %}
             {% if images %}
-              {% for image in images %}
-                {% if image.video %}
-                  <li class="image-additional">
-                    <a class="thumbnail video" href="{{ image.video }}" title="{{ heading_title }}" style="position: relative;">
-                      <img src="{{ image.thumb }}" alt="{{ heading_title }}" />
-                      <i class="fa fa-play" style="position: absolute; top: 30%; left: 25%; padding: 5px 7px 5px 8px; border: 3px solid #fff; color: #fff; font-size: 20px; border-radius: 50%;"></i>
-                    </a>
-                  </li>
-                {% else %}
-                  <li class="image-additional">
-                    <a class="thumbnail" href="{{ image.popup }}" title="{{ heading_title }}">
-                      <img src="{{ image.thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}" />
-                    </a>
-                  </li>
-                {% endif %}
-              {% endfor %}
+               {% for image in images %}
+                  <li class="image-additional"><a class="thumbnail" href="{{ image.popup }}" title="{{ heading_title }}"> <img src="{{ image.thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}" /></a></li>
+               {% endfor %}
+            {% endif %}
+            {% if videos %}
+               {% for video in videos %}
+                   <li class="image-additional">
+                       <a class="thumbnail video" href="{{ video.video }}" title="{{ heading_title }}" style="position: relative;">
+                           <img src="{{ video.thumb }}" alt="{{ heading_title }}" />
+                           <i class="fa fa-play" style="position: absolute; top: 30%; left: 25%; padding: 5px 7px 5px 8px; border: 3px solid #fff; color: #fff; font-size: 20px; border-radius: 50%;"></i>
+                       </a>
+                   </li>
+               {% endfor %}
             {% endif %}
           </ul>
           {% endif %}

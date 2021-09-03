@@ -37,6 +37,7 @@
             <li><a href="#tab-reward" data-toggle="tab">{{ tab_reward }}</a></li>
             <li><a href="#tab-seo" data-toggle="tab">{{ tab_seo }}</a></li>
             <li><a href="#tab-design" data-toggle="tab">{{ tab_design }}</a></li>
+            <li><a href="#tab-video" data-toggle="tab">{{ tab_video }}</a></li>
           </ul>
           <div class="tab-content">
             <div class="tab-pane active" id="tab-general">
@@ -992,7 +993,6 @@
                   <thead>
                     <tr>
                       <td class="text-left">{{ entry_additional_image }}</td>
-                      <td class="text-left">{{ entry_video_link }}</td>
                       <td class="text-right">{{ entry_sort_order }}</td>
                       <td></td>
                     </tr>
@@ -1003,7 +1003,6 @@
                     {% for product_image in product_images %}
                       <tr id="image-row{{ image_row }}">
                         <td class="text-left"><a href="" id="thumb-image{{ image_row }}" data-toggle="image" class="img-thumbnail"><img src="{{ product_image.thumb }}" alt="" title="" data-placeholder="{{ placeholder }}"/></a> <input type="hidden" name="product_image[{{ image_row }}][image]" value="{{ product_image.image }}" id="input-image{{ image_row }}"/></td>
-                        <td class="text-left"><input type="text" name="product_image[{{ image_row }}][video]" placeholder="{{ entry_video_link }}" value="{{ product_image.video }}" id="input-video" class="form-control" /></td>
                         <td class="text-right"><input type="text" name="product_image[{{ image_row }}][sort_order]" value="{{ product_image.sort_order }}" placeholder="{{ entry_sort_order }}" class="form-control"/></td>
                         <td class="text-left"><button type="button" onclick="$('#image-row{{ image_row }}').remove();" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
                       </tr>
@@ -1014,7 +1013,6 @@
                   <tfoot>
                     <tr>
                       <td colspan="2"></td>
-                      <td colspan="1"></td>
                       <td class="text-left"><button type="button" onclick="addImage();" data-toggle="tooltip" title="{{ button_image_add }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
                     </tr>
                   </tfoot>
@@ -1115,6 +1113,41 @@
                       </tr>
                     {% endfor %}
                   </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="tab-pane" id="tab-video">
+              <div class="table-responsive">
+                <table id="videos" class="table table-striped table-bordered table-hover">
+                  <thead>
+                  <tr>
+                    <td class="text-left">{{ entry_preview_image }}</td>
+                    <td class="text-left">{{ entry_video_link }}</td>
+                    <td class="text-right">{{ entry_sort_order }}</td>
+                    <td></td>
+                  </tr>
+                  </thead>
+                  <tbody>
+
+                  {% set video_row = 0 %}
+                  {% for product_video in product_videos %}
+                    <tr id="video-row{{ video_row }}">
+                      <td class="text-left"><a href="" id="thumb-image-video{{ video_row }}" data-toggle="image" class="img-thumbnail"><img src="{{ product_video.thumb }}" alt="" title="" data-placeholder="{{ placeholder }}"/></a> <input type="hidden" name="product_video[{{ video_row }}][image]" value="{{ product_video.image }}" id="input-image-video{{ video_row }}"/></td>
+                      <td class="text-left"><input type="text" name="product_video[{{ video_row }}][video]" placeholder="{{ entry_video_link }}" value="{{ product_video.video }}" id="input-video" class="form-control" /></td>
+                      <td class="text-right"><input type="text" name="product_video[{{ video_row }}][sort_order]" value="{{ product_video.sort_order }}" placeholder="{{ entry_sort_order }}" class="form-control"/></td>
+                      <td class="text-left"><button type="button" onclick="$('#video-row{{ video_row }}').remove();" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
+                    </tr>
+                    {% set video_row = video_row + 1 %}
+                  {% endfor %}
+                  </tbody>
+
+                  <tfoot>
+                  <tr>
+                    <td colspan="2"></td>
+                    <td colspan="1"></td>
+                    <td class="text-left"><button type="button" onclick="addVideo();" data-toggle="tooltip" title="{{ button_video_add }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
+                  </tr>
+                  </tfoot>
                 </table>
               </div>
             </div>
@@ -1569,7 +1602,6 @@
   function addImage() {
 	  html = '<tr id="image-row' + image_row + '">';
 	  html += '  <td class="text-left"><a href="" id="thumb-image' + image_row + '"data-toggle="image" class="img-thumbnail"><img src="{{ placeholder }}" alt="" title="" data-placeholder="{{ placeholder }}" /></a><input type="hidden" name="product_image[' + image_row + '][image]" value="" id="input-image' + image_row + '" /></td>';
-	  html += '  <td class="text-left"><input type="text" name="product_image[' + image_row + '][video]" placeholder="{{ entry_video_link }}" value="" id="input-video" class="form-control" /></td>';
 	  html += '  <td class="text-right"><input type="text" name="product_image[' + image_row + '][sort_order]" value="" placeholder="{{ entry_sort_order }}" class="form-control" /></td>';
 	  html += '  <td class="text-left"><button type="button" onclick="$(\'#image-row' + image_row + '\').remove();" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
 	  html += '</tr>';
@@ -1580,6 +1612,23 @@
   }
 
   //--></script>
+  <script type="text/javascript"><!--
+    var video_row = {{ video_row }};
+
+    function addVideo() {
+      html = '<tr id="video-row' + video_row + '">';
+      html += '  <td class="text-left"><a href="" id="thumb-image-video' + video_row + '"data-toggle="image" class="img-thumbnail"><img src="{{ placeholder }}" alt="" title="" data-placeholder="{{ placeholder }}" /></a><input type="hidden" name="product_video[' + video_row + '][image]" value="" id="input-image-video' + video_row + '" /></td>';
+      html += '  <td class="text-left"><input type="text" name="product_video[' + video_row + '][video]" placeholder="{{ entry_video_link }}" value="" id="input-video" class="form-control" /></td>';
+      html += '  <td class="text-right"><input type="text" name="product_video[' + video_row + '][sort_order]" value="" placeholder="{{ entry_sort_order }}" class="form-control" /></td>';
+      html += '  <td class="text-left"><button type="button" onclick="$(\'#video-row' + video_row + '\').remove();" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
+      html += '</tr>';
+
+      $('#videos tbody').append(html);
+
+      video_row++;
+    }
+
+    //--></script>
   <script type="text/javascript"><!--
   var recurring_row = {{ recurring_row }};
 
